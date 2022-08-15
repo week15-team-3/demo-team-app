@@ -9,6 +9,7 @@
 <script>
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import Memoapp from "@/components/Memoapp.vue"
 
 export default {
   components: {
