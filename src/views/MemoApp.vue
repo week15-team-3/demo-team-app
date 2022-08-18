@@ -103,14 +103,29 @@
         ></label>
         <input
           type="radio"
-          id="blue2"
+          v-bind:id="colors[0].id"
           v-model="colorSelect"
-          value="#8EB8FF"
+          v-bind:value="colors[0].value"
         /><label
-          for="blue2"
+          v-bind:for="colors[0].for"
           class="radio-btn"
-          style="background-color: #8eb8ff"
+          v-bind:style="{ backgroundColor: colors[0].value }"
         ></label>
+      </div>
+
+      <div v-for="(color, index) in colors" v-bind:key="index">
+        <div>
+          <input
+            type="radio"
+            v-bind:id="color.id"
+            v-model="colorSelect"
+            v-bind:value="color.bgc"
+          /><label
+            v-bindfor="color.id"
+            class="radio-btn"
+            v-bind:style="{ backgroundColor: color.bgc }"
+          ></label>
+        </div>
       </div>
 
       <h4>プレビューが表示されるよ！</h4>
@@ -149,6 +164,18 @@ export default {
       inputMemo: "",
       memos: [],
       colorSelect: "",
+      colors: [
+        { id: "white", bgc: "white" },
+        { id: "pink", bgc: "pink" },
+        { id: "orange", bgc: "orange" },
+        { id: "yellow", bgc: "yellow" },
+        { id: "green", bgc: "rgb(126, 234, 130)" },
+        { id: "silver", bgc: "silver" },
+        { id: "aqua", bgc: "aqua" },
+        { id: "purple", bgc: "#ffccff" },
+        { id: "green2", bgc: "#86F9C5" },
+        { id: "blue2", bgc: "#8EB8FF" },
+      ],
     }
   },
   methods: {
