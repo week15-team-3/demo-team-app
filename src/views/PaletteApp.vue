@@ -3,7 +3,10 @@
   <div class="app">
     <div
       class="palette"
-      v-bind:style="{ 'background-color': rgba(0, 100, 200, 0.5) }"
+      v-bind:style="{
+        'background-color':
+          'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')',
+      }"
       v-on:mousemove="changeColor"
     ></div>
     <p>rgba( {{ red }}, {{ green }}, 200, 0.5 )</p>
@@ -19,8 +22,8 @@ export default {
     return {
       red: 0,
       green: 0,
-      blue: 0,
-      alpha: 0,
+      blue: 200,
+      alpha: 0.5,
     }
   },
   methods: {
