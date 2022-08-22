@@ -27,6 +27,7 @@
             'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')',
         }"
         v-on:mousemove="changeColor"
+        v-on:click="decideColor"
       ></div>
       <!-- 色を表示する部分ここまで -->
       <!-- 下からX軸を表す部分 -->
@@ -59,6 +60,7 @@
 export default {
   data() {
     return {
+      decideTrigger: false,
       Xpointer: 0,
       Ypointer: 0,
       red: 0,
@@ -79,29 +81,38 @@ export default {
     changeColor(event) {
       this.Xpointer = event.offsetX
       this.Ypointer = event.offsetY
-      if (this.selectedX.text === "Red") {
-        this.red = this.Xpointer
+      if (!this.decideTrigger) {
+        if (this.selectedX.text === "Red") {
+          this.red = this.Xpointer
+        }
+        if (this.selectedX.text === "Green") {
+          this.green = this.Xpointer
+        }
+        if (this.selectedX.text === "Blue") {
+          this.blue = this.Xpointer
+        }
+        if (this.selectedX.text === "Alpha") {
+          this.alpha = this.Xpointer
+        }
+        if (this.selectedY.text === "Red") {
+          this.red = this.Ypointer
+        }
+        if (this.selectedY.text === "Green") {
+          this.green = this.Ypointer
+        }
+        if (this.selectedY.text === "Blue") {
+          this.blue = this.Ypointer
+        }
+        if (this.selectedY.text === "Alpha") {
+          this.alpha = this.Ypointer
+        }
       }
-      if (this.selectedX.text === "Green") {
-        this.green = this.Xpointer
-      }
-      if (this.selectedX.text === "Blue") {
-        this.blue = this.Xpointer
-      }
-      if (this.selectedX.text === "Alpha") {
-        this.alpha = this.Xpointer
-      }
-      if (this.selectedY.text === "Red") {
-        this.red = this.Ypointer
-      }
-      if (this.selectedY.text === "Green") {
-        this.green = this.Ypointer
-      }
-      if (this.selectedY.text === "Blue") {
-        this.blue = this.Ypointer
-      }
-      if (this.selectedY.text === "Alpha") {
-        this.alpha = this.Ypointer
+    },
+    decideColor() {
+      if (this.decideTrigger) {
+        this.decideTrigger = false
+      } else {
+        this.decideTrigger = true
       }
     },
   },
