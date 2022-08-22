@@ -1,6 +1,14 @@
 <template>
   <h1>Vue パレット</h1>
   <div class="app">
+    <!-- 使い方の説明 -->
+    <h2 class="explanation_title">使い方</h2>
+    <p class="explanation_main">
+      マウスを動かすと縦軸、メインパレットの横軸に設定されたRGBAの要素の値が変化します。<br />メインパレット上でクリックすると一時的に色の変化を止められます。再びクリックすると色の変化が再開します。
+    </p>
+    <!-- 説明終わり -->
+    <!-- 以下からメインパレットの大枠 -->
+    <h3 class="palette_title">メインパレット</h3>
     <div class="palette_area">
       <!-- 下からY軸を表す部分 -->
       <div class="palette_Yaxis palette_axis">
@@ -50,6 +58,7 @@
     </div>
     <!-- 下のpタグが現在の色の説明 -->
     <p>rgba( {{ red }}, {{ green }}, {{ blue }}, {{ alpha }} )</p>
+    <!-- 現在の色の説明終わり -->
     <div class="colors-container">
       <div class="mini-palette"></div>
     </div>
@@ -78,6 +87,7 @@ export default {
     }
   },
   methods: {
+    // 以下はマウスを動かしたときに色を変更する関数。クリックされるたびに色の変化が起こるか止まるかが変化する機構を内包している。
     changeColor(event) {
       this.Xpointer = event.offsetX
       this.Ypointer = event.offsetY
@@ -108,6 +118,7 @@ export default {
         }
       }
     },
+    // 以下はクリックのたびに変数名"decideColor"のboolean値を変える関数
     decideColor() {
       if (this.decideTrigger) {
         this.decideTrigger = false
