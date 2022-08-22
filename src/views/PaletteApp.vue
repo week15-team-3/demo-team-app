@@ -4,13 +4,13 @@
     <!-- 使い方の説明 -->
     <h2 class="explanation_title">使い方</h2>
     <p class="explanation_main">
-      マウスを動かすと縦軸、メインパレットの横軸に設定されたRGBAの要素の値が変化します。<br />メインパレット上でクリックすると一時的に色の変化を止められます。再びクリックすると色の変化が再開します。
+      マウスを動かすと縦軸、メインパレットの横軸に設定されたRGBAの要素の値が変化します。<br />メインパレット上または「色の変化」の部分でクリックすると一時的に色の変化を止められます。再びクリックすると色の変化が再開します。
     </p>
     <!-- 説明終わり -->
     <!-- 以下からメインパレットの大枠 -->
     <h3 class="palette_title">メインパレット</h3>
     <!-- クリックの状態を表示 -->
-    <div class="clickStatus">
+    <div class="clickStatus" v-on:click="decideColor">
       色の変化：
       <div v-if="decideTrigger">停止中</div>
       <div v-else>可能</div>
