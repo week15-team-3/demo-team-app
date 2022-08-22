@@ -9,6 +9,13 @@
     <!-- 説明終わり -->
     <!-- 以下からメインパレットの大枠 -->
     <h3 class="palette_title">メインパレット</h3>
+    <!-- クリックの状態を表示 -->
+    <div class="clickStatus">
+      色の変化：
+      <div v-if="decideTrigger">停止中</div>
+      <div v-else>可能</div>
+    </div>
+    <!-- クリックの状態表示終わり -->
     <div class="palette_area">
       <!-- 下からY軸を表す部分 -->
       <div class="palette_Yaxis palette_axis">
@@ -142,6 +149,9 @@ export default {
   width: 100%;
   flex-direction: column;
   align-items: center;
+}
+.clickStatus {
+  display: flex;
 }
 .palette {
   width: 255px;
