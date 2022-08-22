@@ -57,7 +57,13 @@
       <!-- X軸を表す部分終わり -->
     </div>
     <!-- 下のpタグが現在の色の説明 -->
-    <p>rgba( {{ red }}, {{ green }}, {{ blue }}, {{ alpha }} )</p>
+    <p>
+      rgba(
+      <input class="inputColor" v-model="red" v-bind:placeholder="red" /> ,
+      <input class="inputColor" v-model="green" v-bind:placeholder="green" />,
+      <input class="inputColor" v-model="blue" v-bind:placeholder="green" />,
+      <input class="inputColor" v-model="alpha" v-bind:placeholder="alpha" /> )
+    </p>
     <!-- 現在の色の説明終わり -->
     <div class="colors-container">
       <div class="mini-palette"></div>
@@ -162,6 +168,9 @@ export default {
 .palette_area_axis_element {
   font-size: 20px;
   font-weight: bold;
+}
+.inputColor {
+  width: 2rem;
 }
 .mini-palette {
   min-width: 60px;
