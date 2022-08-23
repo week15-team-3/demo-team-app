@@ -8,10 +8,10 @@
         class="inputMemo"
         v-model="inputMemo"
       />
-      <div v-if="colors != null">
+      <div>
         <h4>メモの背景色を選択してね！</h4>
-        <div v-for="(color, index) in colors" v-bind:key="index">
-          <div>
+        <div class="color-btn__flex">
+          <div v-for="(color, index) in colors" v-bind:key="index">
             <input
               type="radio"
               v-bind:id="color.id"
@@ -135,10 +135,14 @@ input[type="radio"] {
   display: none;
 }
 
-.radio-btn {
-  display: block flex;
+.color-btn__flex {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.radio-btn {
+  display: block;
   margin: 3px 9px;
   width: 57px;
   height: 30px;
