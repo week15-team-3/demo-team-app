@@ -8,123 +8,21 @@
         class="inputMemo"
         v-model="inputMemo"
       />
-      <div>
+      <div v-if="colors != null">
         <h4>メモの背景色を選択してね！</h4>
-        <input
-          type="radio"
-          id="white"
-          v-model="colorSelect"
-          value="white"
-        /><label
-          for="white"
-          class="radio-btn"
-          style="background-color: white"
-        ></label>
-        <input
-          type="radio"
-          id="pink"
-          v-model="colorSelect"
-          value="pink"
-        /><label
-          for="pink"
-          class="radio-btn"
-          style="background-color: pink"
-        ></label>
-        <input
-          type="radio"
-          id="orange"
-          v-model="colorSelect"
-          value="orange"
-        /><label
-          for="orange"
-          class="radio-btn"
-          style="background-color: orange"
-        ></label>
-        <input
-          type="radio"
-          id="yellow"
-          v-model="colorSelect"
-          value="yellow"
-        /><label
-          for="yellow"
-          class="radio-btn"
-          style="background-color: yellow"
-        ></label>
-        <input
-          type="radio"
-          id="green"
-          v-model="colorSelect"
-          value="rgb(126, 234, 130)"
-        /><label
-          for="green"
-          class="radio-btn"
-          style="background-color: rgb(126, 234, 130)"
-        ></label>
-        <br />
-        <input
-          type="radio"
-          id="silver"
-          v-model="colorSelect"
-          value="silver"
-        /><label
-          for="silver"
-          class="radio-btn"
-          style="background-color: silver"
-        ></label>
-        <input
-          type="radio"
-          id="aqua"
-          v-model="colorSelect"
-          value="aqua"
-        /><label
-          for="aqua"
-          class="radio-btn"
-          style="background-color: aqua"
-        ></label>
-        <input
-          type="radio"
-          id="purple"
-          v-model="colorSelect"
-          value="#FFCCFF"
-        /><label
-          for="purple"
-          class="radio-btn"
-          style="background-color: #ffccff"
-        ></label>
-        <input
-          type="radio"
-          id="green2"
-          v-model="colorSelect"
-          value="#86F9C5"
-        /><label
-          for="green2"
-          class="radio-btn"
-          style="background-color: #86f9c5"
-        ></label>
-        <input
-          type="radio"
-          v-bind:id="colors[0].id"
-          v-model="colorSelect"
-          v-bind:value="colors[0].value"
-        /><label
-          v-bind:for="colors[0].for"
-          class="radio-btn"
-          v-bind:style="{ backgroundColor: colors[0].value }"
-        ></label>
-      </div>
-
-      <div v-for="(color, index) in colors" v-bind:key="index">
-        <div>
-          <input
-            type="radio"
-            v-bind:id="color.id"
-            v-model="colorSelect"
-            v-bind:value="color.bgc"
-          /><label
-            v-bindfor="color.id"
-            class="radio-btn"
-            v-bind:style="{ backgroundColor: color.bgc }"
-          ></label>
+        <div v-for="(color, index) in colors" v-bind:key="index">
+          <div>
+            <input
+              type="radio"
+              v-bind:id="color.id"
+              v-model="colorSelect"
+              v-bind:value="color.bgc"
+            /><label
+              v-bind:for="color.id"
+              class="radio-btn"
+              v-bind:style="{ backgroundColor: color.bgc }"
+            ></label>
+          </div>
         </div>
       </div>
 
@@ -238,7 +136,9 @@ input[type="radio"] {
 }
 
 .radio-btn {
-  display: inline-block;
+  display: block flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: 3px 9px;
   width: 57px;
   height: 30px;
