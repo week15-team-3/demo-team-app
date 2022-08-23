@@ -43,12 +43,20 @@
         v-on:click="addMemo"
       />
     </div>
-
+    <h4>メモ一覧</h4>
     <div v-for="(memo, index) in memos" v-bind:key="index">
-      <div v-bind:style="{ backgroundColor: memo.bgColor }">
-        内容： {{ memo.content }} <br />
-        日時： {{ memo.date }}
-        <button v-on:click="deleteMemo(index)">削除</button>
+      <div v-bind:style="{ backgroundColor: memo.bgColor }" class="each__memo">
+        <div>
+          内容： {{ memo.content }} <br />
+          日時： {{ memo.date }}
+        </div>
+        <div v-on:click="deleteMemo(index)">
+          <img
+            src="../assets/delete.png"
+            alt="削除"
+            class="memo-delete-image"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +97,7 @@ export default {
         this.colorSelect = ""
         this.warning = ""
       } else {
-        this.warning = "*メモの内容と背景色を入力してください"
+        this.warning = "*メモの内容と背景色を両方入力してください"
       }
     },
     deleteMemo: function (index) {
@@ -182,5 +190,22 @@ input[type="radio"] {
   box-shadow: none;
   color: #4dffff;
   background: #990000;
+}
+
+/* ここからはメモ表示に関するCSS */
+.each__memo {
+  display: block;
+  margin: 5px 150px 5px 80px;
+  padding: 30px;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.memo-delete-image {
+  width: 40px;
+  cursor: pointer;
 }
 </style>
