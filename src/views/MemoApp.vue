@@ -1,109 +1,282 @@
 <template>
-  <h1>Vue メモ</h1>
-  <div class="memo-list">
-    <ul class="memo-list__container">
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
+  <div id="memo-app">
+    <div class="postMemo__container">
+      <h2>メモを追加しよう！</h2>
+      <input
+        type="text"
+        placeholder="メモを入力してください"
+        class="inputMemo"
+        v-model="inputMemo"
+      />
+      <div>
+        <h4>メモの背景色を選択してね！</h4>
+        <input
+          type="radio"
+          id="white"
+          v-model="colorSelect"
+          value="white"
+        /><label
+          for="white"
+          class="radio-btn"
+          style="background-color: white"
+        ></label>
+        <input
+          type="radio"
+          id="pink"
+          v-model="colorSelect"
+          value="pink"
+        /><label
+          for="pink"
+          class="radio-btn"
+          style="background-color: pink"
+        ></label>
+        <input
+          type="radio"
+          id="orange"
+          v-model="colorSelect"
+          value="orange"
+        /><label
+          for="orange"
+          class="radio-btn"
+          style="background-color: orange"
+        ></label>
+        <input
+          type="radio"
+          id="yellow"
+          v-model="colorSelect"
+          value="yellow"
+        /><label
+          for="yellow"
+          class="radio-btn"
+          style="background-color: yellow"
+        ></label>
+        <input
+          type="radio"
+          id="green"
+          v-model="colorSelect"
+          value="rgb(126, 234, 130)"
+        /><label
+          for="green"
+          class="radio-btn"
+          style="background-color: rgb(126, 234, 130)"
+        ></label>
+        <br />
+        <input
+          type="radio"
+          id="silver"
+          v-model="colorSelect"
+          value="silver"
+        /><label
+          for="silver"
+          class="radio-btn"
+          style="background-color: silver"
+        ></label>
+        <input
+          type="radio"
+          id="aqua"
+          v-model="colorSelect"
+          value="aqua"
+        /><label
+          for="aqua"
+          class="radio-btn"
+          style="background-color: aqua"
+        ></label>
+        <input
+          type="radio"
+          id="purple"
+          v-model="colorSelect"
+          value="#FFCCFF"
+        /><label
+          for="purple"
+          class="radio-btn"
+          style="background-color: #ffccff"
+        ></label>
+        <input
+          type="radio"
+          id="green2"
+          v-model="colorSelect"
+          value="#86F9C5"
+        /><label
+          for="green2"
+          class="radio-btn"
+          style="background-color: #86f9c5"
+        ></label>
+        <input
+          type="radio"
+          v-bind:id="colors[0].id"
+          v-model="colorSelect"
+          v-bind:value="colors[0].value"
+        /><label
+          v-bind:for="colors[0].for"
+          class="radio-btn"
+          v-bind:style="{ backgroundColor: colors[0].value }"
+        ></label>
+      </div>
+
+      <div v-for="(color, index) in colors" v-bind:key="index">
+        <div>
+          <input
+            type="radio"
+            v-bind:id="color.id"
+            v-model="colorSelect"
+            v-bind:value="color.bgc"
+          /><label
+            v-bindfor="color.id"
+            class="radio-btn"
+            v-bind:style="{ backgroundColor: color.bgc }"
+          ></label>
         </div>
-        <div class="memo__text">ひき肉を300g買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ホウレンソウを1束買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ピーマンを2個買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-    </ul>
-    <div class="add-memo-field">
-      <input class="add-memo-field__input" type="text" />
-      <button class="add-memo-field__button">追加</button>
+      </div>
+
+      <h4>プレビューが表示されるよ！</h4>
+      <div
+        class="preview-container"
+        v-bind:style="{ backgroundColor: colorSelect }"
+      >
+        {{ inputMemo }}
+      </div>
+      <div style="color: red">
+        {{ warning }}
+      </div>
+      <input
+        class="addMemo-btn"
+        type="submit"
+        value="メモを追加する"
+        v-on:click="addMemo"
+      />
+    </div>
+
+    <div v-for="(memo, index) in memos" v-bind:key="index">
+      <div v-bind:style="{ backgroundColor: memo.bgColor }">
+        内容： {{ memo.content }} <br />
+        日時： {{ memo.date }}
+        <button v-on:click="deleteMemo(index)">削除</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      warning: "",
+      inputMemo: "",
+      memos: [],
+      colorSelect: "",
+      colors: [
+        { id: "white", bgc: "white" },
+        { id: "pink", bgc: "pink" },
+        { id: "orange", bgc: "orange" },
+        { id: "yellow", bgc: "yellow" },
+        { id: "green", bgc: "rgb(126, 234, 130)" },
+        { id: "silver", bgc: "silver" },
+        { id: "aqua", bgc: "aqua" },
+        { id: "purple", bgc: "#ffccff" },
+        { id: "green2", bgc: "#86F9C5" },
+        { id: "blue2", bgc: "#8EB8FF" },
+      ],
+    }
+  },
+  methods: {
+    addMemo: function () {
+      if (this.inputMemo != "" && this.colorSelect != "") {
+        const memo = {
+          content: this.inputMemo,
+          date: new Date(),
+          bgColor: this.colorSelect,
+        }
+        this.memos.push(memo)
+        this.inputMemo = ""
+        this.colorSelect = ""
+        this.warning = ""
+      } else {
+        this.warning = "*メモの内容と背景色を入力してください"
+      }
+    },
+    deleteMemo: function (index) {
+      this.memos.splice(index, 1)
+    },
+  },
+}
 </script>
 
 <style scoped>
-.memo-list {
-  padding-left: 5rem;
-  padding-right: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  max-width: 512px;
-  margin-left: auto;
-  margin-right: auto;
+.postMemo__container {
+  background-color: rgb(159, 246, 217);
+  border: thick double #32a1ce;
+  border-radius: 25px;
+  padding: 20px 50px;
+  margin: 20px auto;
+  width: 400px;
 }
 
-.memo-list__container {
-  padding: 0;
+h2,
+h4 {
+  text-align: center;
 }
 
-.memo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 5px;
+input[type="text"] {
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  width: 370px;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  border: 1px solid #ffffff;
+  box-shadow: 1px 1px 2px 0 #707070 inset;
+  border-radius: 4px;
 }
 
-.memo:hover {
-  color: white;
-  background-color: #b23b61;
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: inset 1px 1px 2px 0 #c9c9c9;
 }
 
-.memo__text {
-  margin-left: 2rem;
-  text-align: left;
+input[type="radio"] {
+  display: none;
 }
 
-.memo__text--done {
-  text-decoration-line: line-through;
+.radio-btn {
+  display: inline-block;
+  margin: 3px 9px;
+  width: 57px;
+  height: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s; /* なめらか変化 */
+  box-shadow: 6px 6px 4px #666666;
 }
 
-.memo__delete {
-  margin-left: 1rem;
-  padding: 0.5rem 0.5rem;
-  border: solid 1px black;
-  border-radius: 5px;
-  background-color: white;
+.radio-btn:hover {
+  box-shadow: none;
 }
 
-.memo__delete:hover {
-  background-color: #b2ae3b;
-  border-radius: 5px;
+.preview-container {
+  display: inline-block;
+  border: 5px ridge rgba(211, 220, 50, 0.6);
+  width: 370px;
+  min-height: 50px;
+  text-align: center;
+  line-height: 50px;
 }
 
-.add-memo-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.addMemo-btn {
+  display: inline-block;
+  border-radius: 20px;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  padding: 12px 12px;
+  margin: 10px 30%;
+  background: #4dffff;
+  color: #990000;
+  transition: 0.3s; /* なめらか変化 */
+  box-shadow: 6px 6px 4px #666666;
 }
-
-.add-memo-field__input {
-  padding: 10px;
-}
-.add-memo-field__button {
-  padding: 0.5rem 0.5rem;
-  border: solid 1px black;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.add-memo-field__button:hover {
-  background-color: #b2ae3b;
-  border-radius: 5px;
+.addMemo-btn:hover {
+  box-shadow: none;
+  color: #4dffff;
+  background: #990000;
 }
 </style>
