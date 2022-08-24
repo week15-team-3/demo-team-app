@@ -19,7 +19,7 @@
     <div class="palette_area">
       <!-- 下からY軸を表す部分 -->
       <div class="palette_Yaxis palette_axis">
-        <div class="palette_area_axis_index">Low</div>
+        <div class="palette_area_axis_index">0</div>
         <div class="palette_area_axis_element">
           <select v-model="selectedY" class="palette_area_axis_element">
             <option
@@ -31,7 +31,7 @@
             </option>
           </select>
         </div>
-        <div class="palette_area_axis_index">High</div>
+        <div class="palette_area_axis_index">255</div>
       </div>
       <!-- Y軸を表す部分終わり -->
       <!-- 下のdivタグが色を表示。divタグ内にある関数decideColorの引数はpalette上でクリックしていることを表します。 -->
@@ -58,7 +58,7 @@
       <!-- 色を表示する部分ここまで -->
       <!-- 下からX軸を表す部分 -->
       <div class="palette_axis palette_Xaxis">
-        <div class="palette_area_axis_index">Low</div>
+        <div class="palette_area_axis_index">0</div>
         <dic class="palette_area_axis_element"
           ><select v-model="selectedX" class="palette_area_axis_element">
             <option
@@ -70,7 +70,7 @@
             </option>
           </select></dic
         >
-        <div class="palette_area_axis_index">High</div>
+        <div class="palette_area_axis_index">255</div>
       </div>
       <!-- X軸を表す部分終わり -->
     </div>
@@ -109,6 +109,9 @@
       />
       )
     </p>
+    <p class="colorCode">
+      カラーコード:{{ colorCode }} <br />透過度:{{ alpha }}
+    </p>
     <!-- 現在の色を表す部分終わり -->
     <!-- 保存ボタン -->
     <button class="saveButton" v-on:click="saveColor">保存</button>
@@ -137,6 +140,7 @@
               savedColor.alpha +
               ')',
           }"
+          v-on:click="displaySavedColor(index)"
         ></div>
         <button class="deleteColorButton" v-on:click="deleteColor(index)">
           削除
@@ -232,11 +236,31 @@ export default {
     focusInput() {
       this.isFocusPalette = false
     },
+    displaySavedColor(index) {
+      this.red = this.savedColors[index].red
+      this.green = this.savedColors[index].green
+      this.blue = this.savedColors[index].blue
+      this.alpha = this.savedColors[index].alpha
+      this.isFocusPalette = false
+    },
+  },
+  computed: {
+    colorCode() {
+      let colorCode =
+        "#" +
+        ("00" + this.red.toString(16)).slice(-2) +
+        ("00" + this.green.toString(16)).slice(-2) +
+        ("00" + this.blue.toString(16)).slice(-2)
+      return colorCode
+    },
   },
 }
 </script>
 
-<style>
+<style scoped>
+p {
+  margin: 5px 0px;
+}
 .app {
   display: flex;
   width: 100%;
@@ -274,6 +298,9 @@ export default {
 }
 .inputColor {
   width: 2rem;
+}
+.colorCode {
+  text-align: center;
 }
 .mini-palette {
   min-width: 60px;
