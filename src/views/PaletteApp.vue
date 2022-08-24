@@ -87,6 +87,7 @@
         v-model="red"
         v-bind:placeholder="red"
         v-on:click="focusInput"
+        type="number"
       />
       ,
       <input
@@ -94,23 +95,43 @@
         v-model="green"
         v-bind:placeholder="green"
         v-on:click="focusInput"
+        type="number"
       />,
       <input
         class="inputColor"
         v-model="blue"
         v-bind:placeholder="green"
         v-on:click="focusInput"
+        type="number"
       />,
       <input
         class="inputColor"
         v-model="alpha"
         v-bind:placeholder="alpha"
         v-on:click="focusInput"
+        type="number"
       />
       )
     </p>
-    <p class="colorCode">
+    <p class="colorCode" v-show="!decideTrigger">
       カラーコード:{{ colorCode }} <br />透過度:{{ alpha }}
+    </p>
+    <p class="colorCode" v-show="decideTrigger">
+      カラーコード:<input
+        class="colorCodce_input"
+        v-model="inputColorCode"
+        v-bind:placeholder="colorCode"
+        v-on:click="focusInput"
+        type="number"
+      />
+      <br />
+      透過度:<input
+        class="inputColor"
+        v-model="alpha"
+        v-bind:placeholder="alpha"
+        v-on:click="focusInput"
+        type="number"
+      />
     </p>
     <!-- 現在の色を表す部分終わり -->
     <!-- 保存ボタン -->
@@ -298,10 +319,13 @@ p {
   font-weight: bold;
 }
 .inputColor {
-  width: 2rem;
+  width: 2.5rem;
 }
 .colorCode {
   text-align: center;
+}
+.colorCodce_input {
+  width: 4.5rem;
 }
 .mini-palette {
   min-width: 60px;
