@@ -141,6 +141,7 @@
               ')',
           }"
           v-on:click="displaySavedColor(index)"
+          tabindex="0"
         ></div>
         <button class="deleteColorButton" v-on:click="deleteColor(index)">
           削除
@@ -307,6 +308,9 @@ p {
   height: 60px;
   border-radius: 30px;
 }
+.mini-palette:focus {
+  border: solid 2px;
+}
 .palette_pointer {
   background-color: white;
   position: relative;
@@ -328,9 +332,10 @@ p {
 .colors-container {
   display: flex;
   flex-wrap: wrap;
-  width: 350px;
+  width: 360px;
   padding-top: 8px;
   padding-bottom: 8px;
+  padding-right: 10px;
   border: 5px solid;
 }
 .mini-palette_area {
