@@ -122,7 +122,6 @@
         v-model="inputColorCode"
         v-bind:placeholder="colorCode"
         v-on:click="focusInput"
-        type="number"
       />
       <br />
       透過度:<input
@@ -197,6 +196,7 @@ export default {
       selectedY: { text: "Red" },
       savedColors: [],
       isFocusPalette: true,
+      inputColorCode: "",
     }
   },
   methods: {
@@ -274,6 +274,13 @@ export default {
         ("00" + this.green.toString(16)).slice(-2) +
         ("00" + this.blue.toString(16)).slice(-2)
       return colorCode
+    },
+  },
+  watch: {
+    inputColorCode() {
+      this.red = parseInt(this.inputColorCode.substr(1, 2), 16)
+      this.green = parseInt(this.inputColorCode.substr(3, 2), 16)
+      this.blue = parseInt(this.inputColorCode.substr(5, 2), 16)
     },
   },
 }
