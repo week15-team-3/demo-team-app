@@ -10,121 +10,19 @@
       />
       <div>
         <h4>メモの背景色を選択してね！</h4>
-        <input
-          type="radio"
-          id="white"
-          v-model="colorSelect"
-          value="white"
-        /><label
-          for="white"
-          class="radio-btn"
-          style="background-color: white"
-        ></label>
-        <input
-          type="radio"
-          id="pink"
-          v-model="colorSelect"
-          value="pink"
-        /><label
-          for="pink"
-          class="radio-btn"
-          style="background-color: pink"
-        ></label>
-        <input
-          type="radio"
-          id="orange"
-          v-model="colorSelect"
-          value="orange"
-        /><label
-          for="orange"
-          class="radio-btn"
-          style="background-color: orange"
-        ></label>
-        <input
-          type="radio"
-          id="yellow"
-          v-model="colorSelect"
-          value="yellow"
-        /><label
-          for="yellow"
-          class="radio-btn"
-          style="background-color: yellow"
-        ></label>
-        <input
-          type="radio"
-          id="green"
-          v-model="colorSelect"
-          value="rgb(126, 234, 130)"
-        /><label
-          for="green"
-          class="radio-btn"
-          style="background-color: rgb(126, 234, 130)"
-        ></label>
-        <br />
-        <input
-          type="radio"
-          id="silver"
-          v-model="colorSelect"
-          value="silver"
-        /><label
-          for="silver"
-          class="radio-btn"
-          style="background-color: silver"
-        ></label>
-        <input
-          type="radio"
-          id="aqua"
-          v-model="colorSelect"
-          value="aqua"
-        /><label
-          for="aqua"
-          class="radio-btn"
-          style="background-color: aqua"
-        ></label>
-        <input
-          type="radio"
-          id="purple"
-          v-model="colorSelect"
-          value="#FFCCFF"
-        /><label
-          for="purple"
-          class="radio-btn"
-          style="background-color: #ffccff"
-        ></label>
-        <input
-          type="radio"
-          id="green2"
-          v-model="colorSelect"
-          value="#86F9C5"
-        /><label
-          for="green2"
-          class="radio-btn"
-          style="background-color: #86f9c5"
-        ></label>
-        <input
-          type="radio"
-          v-bind:id="colors[0].id"
-          v-model="colorSelect"
-          v-bind:value="colors[0].value"
-        /><label
-          v-bind:for="colors[0].for"
-          class="radio-btn"
-          v-bind:style="{ backgroundColor: colors[0].value }"
-        ></label>
-      </div>
-
-      <div v-for="(color, index) in colors" v-bind:key="index">
-        <div>
-          <input
-            type="radio"
-            v-bind:id="color.id"
-            v-model="colorSelect"
-            v-bind:value="color.bgc"
-          /><label
-            v-bindfor="color.id"
-            class="radio-btn"
-            v-bind:style="{ backgroundColor: color.bgc }"
-          ></label>
+        <div class="color-btn__flex">
+          <div v-for="(color, index) in colors" v-bind:key="index">
+            <input
+              type="radio"
+              v-bind:id="color.id"
+              v-model="colorSelect"
+              v-bind:value="color.bgc"
+            /><label
+              v-bind:for="color.id"
+              class="radio-btn"
+              v-bind:style="{ backgroundColor: color.bgc }"
+            ></label>
+          </div>
         </div>
       </div>
 
@@ -145,12 +43,20 @@
         v-on:click="addMemo"
       />
     </div>
-
+    <h4>メモ一覧</h4>
     <div v-for="(memo, index) in memos" v-bind:key="index">
-      <div v-bind:style="{ backgroundColor: memo.bgColor }">
-        内容： {{ memo.content }} <br />
-        日時： {{ memo.date }}
-        <button v-on:click="deleteMemo(index)">削除</button>
+      <div v-bind:style="{ backgroundColor: memo.bgColor }" class="each__memo">
+        <div>
+          内容： {{ memo.content }} <br />
+          日時： {{ memo.date }}
+        </div>
+        <div v-on:click="deleteMemo(index)">
+          <img
+            src="../assets/delete.png"
+            alt="削除"
+            class="memo-delete-image"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -191,7 +97,7 @@ export default {
         this.colorSelect = ""
         this.warning = ""
       } else {
-        this.warning = "*メモの内容と背景色を入力してください"
+        this.warning = "*メモの内容と背景色を両方入力してください"
       }
     },
     deleteMemo: function (index) {
@@ -237,8 +143,14 @@ input[type="radio"] {
   display: none;
 }
 
+.color-btn__flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .radio-btn {
-  display: inline-block;
+  display: block;
   margin: 3px 9px;
   width: 57px;
   height: 30px;
@@ -278,5 +190,22 @@ input[type="radio"] {
   box-shadow: none;
   color: #4dffff;
   background: #990000;
+}
+
+/* ここからはメモ表示に関するCSS */
+.each__memo {
+  display: block;
+  margin: 5px 150px 5px 80px;
+  padding: 30px;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.memo-delete-image {
+  width: 40px;
+  cursor: pointer;
 }
 </style>
