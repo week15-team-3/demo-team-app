@@ -44,7 +44,7 @@
       />
     </div>
     <h4>メモ一覧</h4>
-    <div v-for="(memo, index) in memos" v-bind:key="index">
+    <div v-for="(memo, index) in reverseMemos" v-bind:key="index">
       <div v-bind:style="{ backgroundColor: memo.bgColor }" class="each__memo">
         <div>
           内容： {{ memo.content }} <br />
@@ -83,6 +83,12 @@ export default {
         { id: "blue2", bgc: "#8EB8FF" },
       ],
     }
+  },
+  computed: {
+    // 配列の要素順番を逆順にする
+    reverseMemos() {
+      return this.memos.slice().reverse()
+    },
   },
   methods: {
     addMemo: function () {
