@@ -71,7 +71,7 @@ export default {
       memos: [],
       colorSelect: "",
       colors: [
-        { id: "white", bgc: "white" },
+        { id: "waterblue", bgc: "#dbfafa" },
         { id: "pink", bgc: "pink" },
         { id: "orange", bgc: "orange" },
         { id: "yellow", bgc: "yellow" },
@@ -195,10 +195,9 @@ input[type="radio"] {
 /* ここからはメモ表示に関するCSS */
 .each__memo {
   display: block;
-  margin: 5px 150px 5px 80px;
-  padding: 30px;
+  margin: 5px 170px 5px 100px;
+  padding: 30px 50px;
   border-radius: 30px;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
