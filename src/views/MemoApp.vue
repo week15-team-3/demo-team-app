@@ -50,12 +50,13 @@
           内容： {{ memo.content }} <br />
           日時： {{ memo.date }}
         </div>
-        <div v-on:click="deleteMemo(index)">
-          <img
-            src="../assets/delete.png"
-            alt="削除"
-            class="memo-delete-image"
-          />
+        <div class="memo-btn">
+          <div v-on:click="reMemo(index)">
+            <img src="../assets/rememo.png" alt="メモ複製" />
+          </div>
+          <div v-on:click="deleteMemo(index)">
+            <img src="../assets/delete.png" alt="削除" />
+          </div>
         </div>
       </div>
     </div>
@@ -97,6 +98,7 @@ export default {
           content: this.inputMemo,
           date: new Date(),
           bgColor: this.colorSelect,
+          reMemo: false,
         }
         this.memos.push(memo)
         this.inputMemo = ""
@@ -108,6 +110,15 @@ export default {
     },
     deleteMemo: function (index) {
       this.memos.splice(index, 1)
+    },
+    reMemo: function (index) {
+      const memo = {
+        content: this.memos[index].content,
+        date: new Date(),
+        bgColor: this.memos[index].bgColor,
+        reMemo: true,
+      }
+      this.memos.push(memo)
     },
   },
 }
@@ -209,7 +220,14 @@ input[type="radio"] {
   justify-content: space-between;
 }
 
-.memo-delete-image {
+.memo-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.memo-btn img {
+  display: inline-block;
   width: 40px;
   cursor: pointer;
 }
