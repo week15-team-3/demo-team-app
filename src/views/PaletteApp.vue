@@ -49,8 +49,8 @@
           v-show="decideTrigger && isFocusPalette"
           class="palette_pointer"
           v-bind:style="{
-            left: pointerPositionX - 5 + 'px',
-            top: pointerPositionY - 5 + 'px',
+            left: pointerPositionX - 6 + 'px',
+            top: pointerPositionY - 7 + 'px',
           }"
         ></div>
         <!-- ポインター終わり -->
@@ -298,6 +298,7 @@ p {
 }
 .clickStatus {
   display: flex;
+  cursor: pointer;
 }
 .palette {
   width: 255px;
@@ -307,6 +308,7 @@ p {
   width: 425px;
   display: flex;
   flex-wrap: wrap;
+  cursor: crosshair;
 }
 .palette_axis {
   display: flex;
